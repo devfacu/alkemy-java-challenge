@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.alkemy.challenge.entity.AppUser;
 
 @Repository
-public interface AppUserRepo extends JpaRepository<AppUser, String>{
+public interface AppUserRepository extends JpaRepository<AppUser, String>{
 
 	@Query("SELECT c FROM AppUser c WHERE c.username = :username")
 	public AppUser findByUsername(@Param("username")String username);

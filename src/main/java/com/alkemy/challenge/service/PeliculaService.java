@@ -1,33 +1,21 @@
 package com.alkemy.challenge.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.alkemy.challenge.entity.Pelicula;
-import com.alkemy.challenge.repository.PeliculaRepo;
+import com.alkemy.challenge.dto.PeliculaBasicDTO;
+import com.alkemy.challenge.dto.PeliculaDTO;
 
-@Service
-public class PeliculaService {
+public interface PeliculaService {
 
-	@Autowired
-	private PeliculaRepo peliculaRepo;
+	PeliculaDTO save(PeliculaDTO dto);
 	
-	public Pelicula savePelicula() {
-		//Hacer las validaciones correspondientes
-		Pelicula pelicula = new Pelicula();
-		
-		return peliculaRepo.save(pelicula);
-	}
+	PeliculaDTO update(PeliculaDTO dto);
 	
-	public Pelicula updatePelicula() {
-		return new Pelicula();
-	}
+	List<PeliculaBasicDTO> getAllPeliculasBasic();
 	
-	public Pelicula getPelicula() {
-		return new Pelicula(); 
-	}
+	PeliculaDTO getDetailsById(String id);
 	
-	public void deletePelicula() {
-		
-	}
+	void deletePelicula(String id);
+	
+	List<PeliculaDTO> getByFilters(String name, String idGenero, String order);
 }
