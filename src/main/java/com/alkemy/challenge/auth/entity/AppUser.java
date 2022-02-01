@@ -1,4 +1,4 @@
-package com.alkemy.challenge.entity;
+package com.alkemy.challenge.auth.entity;
 
 import java.io.Serializable;
 
@@ -19,7 +19,6 @@ public class AppUser implements Serializable{
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	private String nombre;
 	@Column(unique=true)
 	private String username;
 	private String password;
@@ -27,13 +26,9 @@ public class AppUser implements Serializable{
 	public AppUser() {
 		
 	}
-
+	
 	public String getId() {
 		return id;
-	}
-
-	public String getNombre() {
-		return nombre;
 	}
 
 	public String getUsername() {
@@ -46,10 +41,6 @@ public class AppUser implements Serializable{
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public void setUsername(String username) {

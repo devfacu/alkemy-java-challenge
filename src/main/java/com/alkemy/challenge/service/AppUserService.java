@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alkemy.challenge.entity.AppUser;
-import com.alkemy.challenge.repository.AppUserRepository;
+import com.alkemy.challenge.auth.entity.AppUser;
+import com.alkemy.challenge.auth.repository.AppUserRepository;
 
 @Service
 public class AppUserService {
