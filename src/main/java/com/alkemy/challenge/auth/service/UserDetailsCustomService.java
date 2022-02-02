@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.challenge.auth.dto.UserDTO;
@@ -35,7 +36,10 @@ public class UserDetailsCustomService implements UserDetailsService{
 	public boolean save(UserDTO userDTO) {
 		AppUser appUser = new AppUser();
 		appUser.setUsername(userDTO.getUsername());
-		appUser.setPassword(userDTO.getPassword());
+		String password = userDTO.getPassword();
+		//Password Encryption 
+		String encriptedPassword = new BCryptPasswordEncoder().encode(password);
+		appUser.setPassword(encriptedPassword);
 		appUser = this.appUserRepository.save(appUser);
 		
 		return appUser != null;
