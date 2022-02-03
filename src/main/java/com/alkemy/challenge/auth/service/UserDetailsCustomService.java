@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.challenge.auth.dto.UserDTO;
@@ -18,7 +18,10 @@ import com.alkemy.challenge.auth.repository.AppUserRepository;
 public class UserDetailsCustomService implements UserDetailsService{
 	
 	@Autowired
-	AppUserRepository appUserRepository;
+	private AppUserRepository appUserRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	//Falta EmailService
 	
@@ -36,10 +39,9 @@ public class UserDetailsCustomService implements UserDetailsService{
 	public boolean save(UserDTO userDTO) {
 		AppUser appUser = new AppUser();
 		appUser.setUsername(userDTO.getUsername());
-		String password = userDTO.getPassword();
-		//Password Encryption 
-		String encriptedPassword = new BCryptPasswordEncoder().encode(password);
-		appUser.setPassword(encriptedPassword);
+		//Password Encoding
+		String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
+		appUser.setPassword(encodedPassword);
 		appUser = this.appUserRepository.save(appUser);
 		
 		return appUser != null;
