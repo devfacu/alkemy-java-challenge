@@ -1,5 +1,6 @@
 package com.alkemy.challenge.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.alkemy.challenge.dto.PersonajeBasicDTO;
 import com.alkemy.challenge.dto.PersonajeDTO;
@@ -52,7 +54,9 @@ public class PersonajeController {
 	@PostMapping
 	public ResponseEntity<PersonajeDTO> save(@RequestBody PersonajeDTO personaje) {
 		PersonajeDTO personajeSaved = personajeService.save(personaje);
-		return ResponseEntity.status(HttpStatus.CREATED).body(personajeSaved);
+		//Definicion y envio de URI en la ResponseEntity
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/characters/").toUriString());
+		return ResponseEntity.created(uri).body(personajeSaved);
 	}
 	
 	@PutMapping

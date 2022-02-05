@@ -1,6 +1,7 @@
 package com.alkemy.challenge.auth.filter;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -51,12 +51,10 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 			
 			if (jwtUtil.validateToken(jwt, userDetails)) {
 				UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(
-                        userDetails.getUsername(),userDetails.getPassword());
-				
-				Authentication auth = authenticationManager.authenticate(authReq);
+                        userDetails.getUsername(), null, Collections.emptyList());
 				
 				//Set auth in context
-				SecurityContextHolder.getContext().setAuthentication(auth);
+				SecurityContextHolder.getContext().setAuthentication(authReq);
 			}
 		}
 		
